@@ -95,7 +95,7 @@ Ak má klient menej ako 18 rokov, súhlas so spracúvaním údajov udáva jeho z
 - Údaje uchovávam v aplikácii Coach Vault na svojich zariadeniach a v zálohe na môj účet Google Drive. Spoločnosť Google je sprostredkovateľ; údaje môžu byť spracované aj mimo EÚ na základe záruk podľa GDPR (rámec ochrany údajov EÚ–USA a štandardné zmluvné doložky).
 - Faktúry vystavujem v online službe Ahoj Faktúra (ahojfaktura.sk). Sú v nej iba fakturačné údaje (meno, adresa, suma), nie zdravotné údaje.
 - S klientmi komunikujem aj cez WhatsApp (Meta). Zdravotné údaje cez WhatsApp posielajte len v nevyhnutnom rozsahu; podrobnosti preberieme radšej osobne.
-- Podpísané papierové formuláre uchovávam uzamknuté.
+- Formulár klienta vypĺňate a podpisujete elektronicky na webovej stránke. Stránka je uložená na GitHube, ktorý vaše údaje neukladá. Vyplnený formulár sa ako PDF uloží priamo na môj Google Drive a overovací kód aj kópiu formulára vám pošlem e-mailom z môjho účtu Gmail (Google). Ak formulár podpisujete na papieri, uchovávam ho uzamknutý.
 - Prístup k údajom mám iba ja. Vaše údaje nepredávam a nezverejňujem.
 - S iným odborníkom (napríklad fyzioterapeutom) údaje zdieľam iba s vaším súhlasom.
 - Fitness centrum, v ktorom trénujeme, nemá prístup k mojim záznamom o vás.
