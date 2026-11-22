@@ -1,0 +1,335 @@
+<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Formulár klienta – Marco Kormúth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="nastavenia.js"></script>
+<style>
+:root{--bg:#f6f6f4;--card:#fff;--text:#1d1d1b;--muted:#6b6b66;--border:#e4e3df;--accent:#2f6fde;--accent-bg:#e9f0fc;--ok:#2e8b57;--danger:#c0392b;--danger-bg:#fbebeb}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#151514;--card:#1f1f1e;--text:#eeeeec;--muted:#a0a09a;--border:#33332f;--accent:#6c9cf0;--accent-bg:#1e2a40;--ok:#5fbf86;--danger:#ef7b6e;--danger-bg:#3a2220}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+main{max-width:620px;margin:0 auto;padding:24px 16px 48px}
+header{margin-bottom:20px}
+h1{font-size:22px;font-weight:600;margin:0}
+.sub{color:var(--muted);font-size:14px}
+.steps{display:flex;gap:6px;margin:16px 0 0}
+.steps span{flex:1;height:4px;border-radius:2px;background:var(--border)}
+.steps span.on{background:var(--accent)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:14px}
+h2{font-size:17px;font-weight:600;margin:0 0 4px}
+h2+.sub{margin-bottom:14px}
+label.f{display:block;margin-bottom:12px}
+label.f>span{display:block;font-size:13px;font-weight:500;margin-bottom:4px}
+label.f small{display:block;color:var(--muted);font-size:12px;margin-top:3px}
+input[type=text],input[type=email],input[type=tel],input[type=date],textarea{width:100%;font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--border);border-radius:9px;padding:10px 12px}
+input:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:-1px;border-color:transparent}
+input[readonly]{color:var(--muted)}
+.code{font-size:24px;letter-spacing:8px;text-align:center}
+button{font:inherit;font-weight:500;border-radius:10px;padding:12px 16px;border:1px solid var(--border);background:var(--card);color:var(--text);cursor:pointer}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;width:100%}
+button:disabled{opacity:.6;cursor:default}
+.link{background:none;border:none;color:var(--accent);padding:6px 0;font-size:14px}
+.check{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--border)}
+.check:first-of-type{border-top:none}
+.check input{width:20px;height:20px;margin-top:2px;flex:none;accent-color:var(--accent)}
+.check b{font-weight:600}
+.q{padding:10px 0;border-top:1px solid var(--border)}
+.q:first-of-type{border-top:none}
+.yn{display:flex;gap:8px;margin-top:6px}
+.yn label{flex:1;text-align:center;border:1px solid var(--border);border-radius:9px;padding:8px;cursor:pointer;font-size:14px}
+.yn input{position:absolute;opacity:0;pointer-events:none}
+.yn input:checked+span{font-weight:600}
+.yn label:has(input:checked){border-color:var(--accent);background:var(--accent-bg);color:var(--accent)}
+.q textarea{margin-top:8px;min-height:60px}
+ol.v{margin:6px 0 10px;padding-left:20px;font-size:14px}
+ol.v li{margin-bottom:4px}
+details{border:1px solid var(--border);border-radius:10px;padding:10px 12px;margin-bottom:12px}
+summary{cursor:pointer;font-weight:500}
+.terms{font-size:13.5px;max-height:55vh;overflow:auto;margin-top:8px}
+.terms h2{font-size:16px;margin-top:14px}.terms h3{font-size:14px;margin:12px 0 4px}
+.terms table{border-collapse:collapse;width:100%;font-size:13px}.terms td,.terms th{border:1px solid var(--border);padding:5px 7px;text-align:left;vertical-align:top}
+.sig{position:relative;border:1px dashed var(--muted);border-radius:10px;background:#fff;touch-action:none}
+.sig .ph{color:#8a8a85!important}
+.sig canvas{display:block;width:100%;height:170px}
+.sig .ph{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:14px;pointer-events:none}
+.sigbar{display:flex;justify-content:space-between;align-items:center;margin:4px 0 14px}
+.err{background:var(--danger-bg);color:var(--danger);border-radius:10px;padding:10px 12px;font-size:14px;margin-bottom:12px}
+.bad{outline:2px solid var(--danger)!important}
+.done{text-align:center;padding:30px 18px}
+.done .ico{font-size:44px;color:var(--ok)}
+.demo{background:var(--accent-bg);color:var(--accent);border-radius:10px;padding:8px 12px;font-size:13px;margin-bottom:14px}
+.hidden{display:none!important}
+.req{color:var(--danger);font-weight:600;margin-left:3px}
+footer{color:var(--muted);font-size:12px;text-align:center;margin-top:20px}
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1 id="title">Formulár klienta</h1>
+    <div class="sub" id="trainer"></div>
+    <div class="steps"><span class="on"></span><span></span><span></span></div>
+  </header>
+  <div class="demo hidden" id="demo">Skúšobný režim: overovací kód je <b>123456</b> a nič sa neodošle.</div>
+
+  <!-- KROK 1: e-mail -->
+  <section id="s1" class="card">
+    <h2>Overenie e-mailu</h2>
+    <p class="sub">Pošlem vám kód, ktorým potvrdíte, že formulár vypĺňate vy. Ak je klient mladší ako 18 rokov, zadajte e-mail rodiča.</p>
+    <div id="e1" class="err hidden"></div>
+    <label class="f"><span>E-mail</span><input type="email" id="email" autocomplete="email" inputmode="email" placeholder="meno@priklad.sk"></label>
+    <button class="primary" id="sendCode">Poslať kód</button>
+  </section>
+
+  <!-- KROK 2: kód -->
+  <section id="s2" class="card hidden">
+    <h2>Zadajte kód</h2>
+    <p class="sub">Poslal som ho na <b id="emailShow"></b>. Platí 15 minút. Ak ho nevidíte, pozrite aj priečinok Spam.</p>
+    <div id="e2" class="err hidden"></div>
+    <label class="f"><span>Overovací kód</span><input type="text" id="code" class="code" inputmode="numeric" autocomplete="one-time-code" maxlength="6"></label>
+    <button class="primary" id="checkCode">Pokračovať</button>
+    <div style="display:flex;justify-content:space-between;margin-top:8px">
+      <button class="link" id="back1">Zmeniť e-mail</button>
+      <button class="link" id="resend">Poslať znova</button>
+    </div>
+  </section>
+
+  <!-- KROK 3: formulár -->
+  <form id="s3" class="hidden" novalidate>
+    <section class="card">
+      <h2>A. Osobné údaje</h2>
+      <p class="sub">Polia označené <span class="req" style="margin:0">*</span> sú povinné.</p>
+      <label class="f"><span>E-mail (overený)</span><input type="email" id="emailRO" readonly></label>
+      <div id="personal"></div>
+      <label class="check" style="border-top:1px solid var(--border)"><input type="checkbox" id="minor"><span>Klient má <b>menej ako 18 rokov</b> a formulár vypĺňa jeho rodič</span></label>
+    </section>
+
+    <section class="card hidden" id="guardianCard">
+      <h2>B. Zákonný zástupca</h2>
+      <p class="sub">Údaje rodiča, ktorý za klienta uzatvára zmluvu a dáva súhlasy.</p>
+      <div id="guardian"></div>
+    </section>
+
+    <section class="card">
+      <h2>C. Zdravotný stav</h2>
+      <p class="sub">Pri každej otázke označte áno alebo nie. Ak áno, stručne popíšte.</p>
+      <div id="health"></div>
+      <p style="margin:12px 0 0;font-weight:500">Vyhlasujem, že:</p>
+      <ol class="v" id="decl"></ol>
+      <label class="check"><input type="checkbox" id="declOk"><span data-req-mark>Potvrdzujem uvedené vyhlásenia.</span></label>
+    </section>
+
+    <section class="card">
+      <h2>D. Podmienky a súhlasy</h2>
+      <details id="termsBox"><summary>Obchodné podmienky a ochrana osobných údajov</summary><div class="terms" id="terms">Načítavam…</div></details>
+      <label class="check"><input type="checkbox" id="termsOk"><span id="termsText"></span></label>
+      <p style="margin:10px 0 0;font-weight:500">Zaškrtnutím udávam súhlas:</p>
+      <div id="consents"></div>
+      <p class="sub" id="revoke" style="margin:8px 0 0"></p>
+    </section>
+
+    <section class="card">
+      <h2>E. Podpis</h2>
+      <p class="sub">Podpíšte sa prstom alebo myšou do rámčeka.</p>
+      <div id="sigClientWrap">
+        <div style="font-size:13px;font-weight:500;margin-bottom:4px"><span id="sigClientLabel">Podpis klienta</span><span class="req">*</span></div>
+        <div class="sig" id="sigClient"><canvas></canvas><div class="ph">Podpíšte sa sem</div></div>
+        <div class="sigbar"><span class="sub" id="placeDate"></span><button type="button" class="link" data-clear="sigClient">Vymazať podpis</button></div>
+      </div>
+      <div id="sigGuardianWrap" class="hidden">
+        <div style="font-size:13px;font-weight:500;margin-bottom:4px">Podpis rodiča / zákonného zástupcu<span class="req">*</span></div>
+        <div class="sig" id="sigGuardian"><canvas></canvas><div class="ph">Podpíšte sa sem</div></div>
+        <div class="sigbar"><span></span><button type="button" class="link" data-clear="sigGuardian">Vymazať podpis</button></div>
+      </div>
+      <div id="e3" class="err hidden"></div>
+      <button class="primary" type="submit" id="submit">Podpísať a odoslať</button>
+    </section>
+  </form>
+
+  <!-- KROK 4: hotovo -->
+  <section id="s4" class="card done hidden">
+    <div class="ico">✓</div>
+    <h2>Ďakujem, formulár je odoslaný</h2>
+    <p class="sub" id="doneText">Kópiu v PDF som vám poslal na e-mail.</p>
+  </section>
+
+  <footer id="foot"></footer>
+</main>
+
+<script>
+const N = window.NASTAVENIA, $ = id => document.getElementById(id);
+const DEMO = !N.skriptUrl;
+let email = '', token = '', openedAt = null;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+$('trainer').textContent = `${N.trener} · ${N.podtitul}`;
+$('foot').textContent = `Verzia formulára ${N.verzia}`;
+if (DEMO) $('demo').classList.remove('hidden');
+
+function step(n) {
+  ['s1', 's2', 's3', 's4'].forEach((s, i) => $(s).classList.toggle('hidden', i !== n - 1));
+  document.querySelectorAll('.steps span').forEach((s, i) => s.classList.toggle('on', i < Math.min(n, 3)));
+  window.scrollTo(0, 0);
+}
+function showErr(id, msg) { const e = $(id); e.textContent = msg; e.classList.toggle('hidden', !msg); }
+
+async function api(action, data) {
+  if (DEMO) {
+    await new Promise(r => setTimeout(r, 400));
+    if (action === 'verify') return data.code === '123456' ? { ok: true, token: 'demo' } : { ok: false, error: 'Nesprávny kód.' };
+    return { ok: true };
+  }
+  const r = await fetch(N.skriptUrl, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ action, ...data }) });
+  return r.json();
+}
+
+// --- krok 1 a 2 ---
+async function sendCode() {
+  const v = $('email').value.trim();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) return showErr('e1', 'Zadajte platný e-mail.');
+  showErr('e1', ''); $('sendCode').disabled = true; $('sendCode').textContent = 'Posielam…';
+  try {
+    const r = await api('sendCode', { email: v });
+    if (!r.ok) throw new Error(r.error || 'Kód sa nepodarilo poslať.');
+    email = v; $('emailShow').textContent = v; $('code').value = ''; step(2); $('code').focus();
+  } catch (e) { showErr('e1', e.message); }
+  $('sendCode').disabled = false; $('sendCode').textContent = 'Poslať kód';
+}
+$('sendCode').onclick = sendCode;
+$('email').onkeydown = e => { if (e.key === 'Enter') sendCode(); };
+$('back1').onclick = () => step(1);
+$('resend').onclick = async () => { await api('sendCode', { email }); showErr('e2', ''); alert('Nový kód je na ceste.'); };
+async function checkCode() {
+  const c = $('code').value.trim();
+  if (!/^\d{6}$/.test(c)) return showErr('e2', 'Kód má 6 číslic.');
+  $('checkCode').disabled = true;
+  try {
+    const r = await api('verify', { email, code: c });
+    if (!r.ok) throw new Error(r.error || 'Nesprávny kód.');
+    token = r.token; openedAt = new Date(); $('emailRO').value = email; showErr('e2', ''); step(3);
+  } catch (e) { showErr('e2', e.message); }
+  $('checkCode').disabled = false;
+}
+$('checkCode').onclick = checkCode;
+$('code').onkeydown = e => { if (e.key === 'Enter') checkCode(); };
+
+// --- vykreslenie formulára z nastavení ---
+const REQ = '<span class="req" aria-label="povinné">*</span>';
+const field = f => `<label class="f"><span>${esc(f.label)}${f.povinne ? REQ : ''}</span>
+  <input type="${f.typ}" id="${f.id}" ${f.autocomplete ? `autocomplete="${f.autocomplete}"` : ''} data-req="${f.povinne ? 1 : 0}">${f.pomoc ? `<small>${esc(f.pomoc)}</small>` : ''}</label>`;
+$('personal').innerHTML = N.osobneUdaje.map(field).join('');
+$('guardian').innerHTML = N.zastupca.map(field).join('');
+$('health').innerHTML = N.zdravie.map((q, i) => `<div class="q" id="q${i}"><div>${esc(q)}${REQ}</div>
+  <div class="yn"><label><input type="radio" name="h${i}" value="Áno"><span>Áno</span></label><label><input type="radio" name="h${i}" value="Nie"><span>Nie</span></label></div>
+  <textarea id="hn${i}" class="hidden" placeholder="Stručne popíšte"></textarea></div>`).join('');
+$('health').addEventListener('change', e => { const m = e.target.name?.match(/^h(\d+)$/); if (m) $('hn' + m[1]).classList.toggle('hidden', e.target.value !== 'Áno'); });
+$('decl').innerHTML = N.vyhlasenia.map(v => `<li>${esc(v)}</li>`).join('');
+$('termsText').innerHTML = esc(N.potvrdenie) + REQ;
+$('consents').innerHTML = N.suhlasy.map(s => `<label class="check"><input type="checkbox" id="c_${s.id}"><span><b>${esc(s.nazov)} (${s.povinne ? 'potrebné pre spoluprácu' : 'dobrovoľné'})${s.povinne ? REQ : ''}.</b> ${esc(s.text)}</span></label>`).join('');
+document.querySelectorAll('[data-req-mark]').forEach(el => el.insertAdjacentHTML('beforeend', REQ));
+$('revoke').textContent = N.odvolanie;
+fetch('podmienky.md').then(r => r.text()).then(md => $('terms').innerHTML = marked.parse(md)).catch(() => $('terms').textContent = 'Podmienky sa nepodarilo načítať. Obnovte stránku.');
+$('placeDate').textContent = new Date().toLocaleDateString('sk-SK');
+
+$('minor').onchange = () => {
+  const m = $('minor').checked;
+  $('guardianCard').classList.toggle('hidden', !m);
+  $('sigGuardianWrap').classList.toggle('hidden', !m);
+  $('sigClientLabel').textContent = m ? 'Podpis klienta (dieťaťa)' : 'Podpis klienta';
+  if (m) sigs.sigGuardian.resize();
+};
+
+// --- podpis ---
+function SignaturePad(wrap) {
+  const c = wrap.querySelector('canvas'), ph = wrap.querySelector('.ph'), ctx = c.getContext('2d');
+  let drawing = false, empty = true, last = null;
+  const pad = {
+    resize() {
+      const data = empty ? null : c.toDataURL(), r = c.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+      if (!r.width) return;
+      c.width = r.width * d; c.height = r.height * d; ctx.scale(d, d);
+      ctx.lineWidth = 2.2; ctx.lineCap = ctx.lineJoin = 'round'; ctx.strokeStyle = '#1d1d1b';
+      if (data) { const img = new Image(); img.onload = () => ctx.drawImage(img, 0, 0, r.width, r.height); img.src = data; }
+    },
+    clear() { ctx.clearRect(0, 0, c.width, c.height); empty = true; ph.classList.remove('hidden'); },
+    isEmpty: () => empty,
+    png() { // biele pozadie, aby bol podpis čitateľný aj v PDF
+      const o = document.createElement('canvas'); o.width = c.width; o.height = c.height;
+      const x = o.getContext('2d'); x.fillStyle = '#fff'; x.fillRect(0, 0, o.width, o.height); x.drawImage(c, 0, 0);
+      return o.toDataURL('image/png');
+    }
+  };
+  const pos = e => { const r = c.getBoundingClientRect(); return [e.clientX - r.left, e.clientY - r.top]; };
+  c.addEventListener('pointerdown', e => { drawing = true; last = pos(e); c.setPointerCapture(e.pointerId); ctx.beginPath(); ctx.arc(last[0], last[1], 1, 0, 7); ctx.fillStyle = '#1d1d1b'; ctx.fill(); });
+  c.addEventListener('pointermove', e => {
+    if (!drawing) return; const p = pos(e);
+    ctx.beginPath(); ctx.moveTo(...last); ctx.lineTo(...p); ctx.stroke(); last = p;
+    if (empty) { empty = false; ph.classList.add('hidden'); wrap.classList.remove('bad'); }
+  });
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach(t => c.addEventListener(t, () => drawing = false));
+  return pad;
+}
+const sigs = { sigClient: SignaturePad($('sigClient')), sigGuardian: SignaturePad($('sigGuardian')) };
+document.querySelectorAll('[data-clear]').forEach(b => b.onclick = () => sigs[b.dataset.clear].clear());
+const observer = new ResizeObserver(() => Object.values(sigs).forEach(s => s.resize()));
+observer.observe($('sigClient'));
+
+// --- kontrola a odoslanie ---
+['input', 'change'].forEach(t => $('s3').addEventListener(t, e => { e.target.classList.remove('bad'); e.target.closest('.bad')?.classList.remove('bad'); }));
+function collect() {
+  const minor = $('minor').checked, bad = [];
+  document.querySelectorAll('.bad').forEach(e => e.classList.remove('bad'));
+  const val = f => {
+    const el = $(f.id), v = el.value.trim(); if (f.povinne && !v) bad.push(el);
+    if (f.typ === 'date' && v) { const [y, m, d] = v.split('-'); return `${+d}. ${+m}. ${y}`; }
+    return v;
+  };
+  const osobne = Object.fromEntries(N.osobneUdaje.map(f => [f.label, val(f)]));
+  const zastupca = minor ? Object.fromEntries(N.zastupca.map(f => [f.label, val(f)])) : null;
+  const zdravie = N.zdravie.map((q, i) => {
+    const a = document.querySelector(`input[name=h${i}]:checked`)?.value || '';
+    const pozn = $('hn' + i).value.trim();
+    if (!a) bad.push($('q' + i)); if (a === 'Áno' && !pozn) bad.push($('hn' + i));
+    return { otazka: q, odpoved: a, poznamka: a === 'Áno' ? pozn : '' };
+  });
+  if (!$('declOk').checked) bad.push($('declOk').closest('.check'));
+  if (!$('termsOk').checked) bad.push($('termsOk').closest('.check'));
+  const suhlasy = N.suhlasy.map(s => { const on = $('c_' + s.id).checked; if (s.povinne && !on) bad.push($('c_' + s.id).closest('.check')); return { nazov: s.nazov, text: s.text, povinne: s.povinne, udeleny: on }; });
+  if (sigs.sigClient.isEmpty()) bad.push($('sigClient'));
+  if (minor && sigs.sigGuardian.isEmpty()) bad.push($('sigGuardian'));
+  return { bad, data: {
+    verzia: N.verzia, email, token, maloleteho: minor, osobne, zastupca, zdravie,
+    vyhlasenia: N.vyhlasenia, potvrdenie: N.potvrdenie, suhlasy, odvolanie: N.odvolanie,
+    podmienkyHtml: $('terms').innerHTML,
+    podpisKlient: sigs.sigClient.isEmpty() ? null : sigs.sigClient.png(),
+    podpisZastupca: minor && !sigs.sigGuardian.isEmpty() ? sigs.sigGuardian.png() : null,
+    otvorene: openedAt?.toISOString(), odoslane: new Date().toISOString(), zariadenie: navigator.userAgent
+  } };
+}
+$('s3').onsubmit = async e => {
+  e.preventDefault();
+  const { bad, data } = collect();
+  if (bad.length) {
+    bad.forEach(el => el.classList.add('bad'));
+    showErr('e3', 'Skontrolujte, prosím, označené polia.' + (bad.some(b => b.id?.startsWith('sig')) ? ' Chýba podpis.' : ''));
+    bad[0].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  showErr('e3', ''); $('submit').disabled = true; $('submit').textContent = 'Odosielam…';
+  try {
+    const r = await api('submit', data);
+    if (!r.ok) throw new Error(r.error || 'Odoslanie zlyhalo.');
+    if (DEMO) { console.log('Skúšobný režim – odoslané údaje:', data); $('doneText').textContent = 'Skúšobný režim: nič sa neodoslalo. Údaje sú vypísané v konzole prehliadača.'; }
+    step(4);
+  } catch (err) { showErr('e3', err.message + ' Skúste to znova.'); }
+  $('submit').disabled = false; $('submit').textContent = 'Podpísať a odoslať';
+};
+</script>
+</body>
+</html>
